@@ -629,8 +629,8 @@ const barObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.skill-bar-row').forEach(el => barObserver.observe(el));
 
-// ── CHATBOT ──
-const KB = [
+/* old JS chatbot removed — replaced by Gradio iframe */
+const KB_DISABLED = [
   {
     keys: ['experience','years','background','work history','career'],
     answer: `Walid has 5+ years of professional backend engineering experience. He's currently a **Senior Backend Engineer at ABOUT YOU** (Hamburg, Dec 2025–present), previously a Fullstack Developer at CSA Research, founder of Pulsetracker SaaS, Backend Developer at ASEM Medical (4 years), and Head of Digital at CELEC Club (USTHB).`
@@ -744,86 +744,6 @@ const KB = [
     answer: `Walid has received multiple Innovation Awards from phpclasses.org for **Geopulse** (location tracking server) and **QPHP** (Swoole queue server). He was also recognized with certifications and appreciations from CELEC Club as PHP and Laravel instructor and Head of Digital.`
   },
 ];
-
-function findAnswer(q) {
-  const ql = q.toLowerCase();
-  let best = null, bestScore = 0;
-  for (const entry of KB) {
-    let score = 0;
-    for (const k of entry.keys) {
-      if (ql.includes(k)) score += k.length;
-    }
-    if (score > bestScore) { bestScore = score; best = entry.answer; }
-  }
-  if (best) return best;
-  return `I don't have a specific answer for that, but you can reach Walid directly at **walidlaggoune159@gmail.com** — he'd be happy to answer any questions about his background!`;
-}
-
-function formatAnswer(text) {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br>');
-}
-
-function now() {
-  return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-}
-
-function appendMsg(text, type) {
-  const msgs = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.className = `msg ${type}`;
-  div.innerHTML = `<div class="msg-bubble">${formatAnswer(text)}</div><div class="msg-time">${now()}</div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-  return div;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.className = 'msg bot';
-  div.id = 'typing';
-  div.innerHTML = `<div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() {
-  const t = document.getElementById('typing');
-  if (t) t.remove();
-}
-
-function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  appendMsg(text, 'user');
-  input.value = '';
-  input.style.height = 'auto';
-  showTyping();
-  const delay = 600 + Math.random() * 600;
-  setTimeout(() => {
-    removeTyping();
-    appendMsg(findAnswer(text), 'bot');
-  }, delay);
-}
-
-function sendSuggestion(btn) {
-  const input = document.getElementById('chatInput');
-  input.value = btn.textContent;
-  sendMessage();
-}
-
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-}
-
-// auto-resize textarea
-document.getElementById('chatInput').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-});
 </script>
 </body>
 </html>
