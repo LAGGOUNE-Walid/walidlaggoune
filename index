@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walid Laggoune — Senior Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --border: #2a2a2a;
+      --border2: #383838;
+      --text: #f0f0f0;
+      --muted: #999;
+      --muted2: #555;
+      --accent: #fff;
+      --green: #4ade80;
+      --blue: #60a5fa;
+      --purple: #a78bfa;
+      --yellow: #fbbf24;
+      --orange: #fb923c;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(8,8,8,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.03em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 48px 80px; max-width: 1100px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 1px solid var(--border2); border-radius: 100px;
+      padding: 6px 14px; font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      color: var(--muted); margin-bottom: 32px; width: fit-content;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 { font-size: clamp(42px,7vw,84px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--accent); margin-bottom: 24px; }
+    h1 .dim { color: var(--muted2); }
+    .hero-sub { font-size: clamp(17px,2vw,21px); color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 40px; }
+    .hero-stats { display: flex; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; gap: 2px; }
+    .stat-num { font-size: 28px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { background: #d4d4d4; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border2); }
+    .btn-ghost:hover { border-color: #444; color: var(--accent); }
+
+    /* SECTIONS */
+    section { max-width: 1100px; margin: 0 auto; padding: 96px 48px; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    h2 { font-size: clamp(28px,4vw,42px); font-weight: 700; letter-spacing: -0.02em; color: var(--accent); margin-bottom: 56px; }
+    .section-border { border-top: 1px solid var(--border); }
+
+    /* SKILL CHARTS */
+    .charts-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .chart-block { display: flex; flex-direction: column; gap: 20px; }
+    .chart-block-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+    .skill-bar-row { display: flex; flex-direction: column; gap: 6px; }
+    .skill-bar-header { display: flex; justify-content: space-between; align-items: center; }
+    .skill-bar-name { font-size: 13px; color: var(--text); font-weight: 500; }
+    .skill-bar-pct { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--muted); }
+    .skill-bar-track { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .fill-go { background: linear-gradient(90deg, #00acd7, #0077a8); }
+    .fill-php { background: linear-gradient(90deg, #8892be, #5c6a9e); }
+    .fill-js { background: linear-gradient(90deg, #f7df1e, #d4b800); }
+    .fill-arch { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+    .fill-devops { background: linear-gradient(90deg, #4ade80, #16a34a); }
+    .fill-db { background: linear-gradient(90deg, #fb923c, #ea580c); }
+
+    /* radar-style hexagon chart */
+    .radar-wrap { display: flex; justify-content: center; padding: 24px 0; }
+
+    /* SKILLS TAGS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px; }
+    .skill-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .skill-card-title { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { font-size: 13px; padding: 5px 12px; border-radius: 6px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: 'JetBrains Mono', monospace; }
+    .tag.go { border-color: #1d4ed8; color: var(--blue); }
+    .tag.php { border-color: #6d28d9; color: var(--purple); }
+    .tag.js { border-color: #92400e; color: var(--yellow); }
+    .tag.infra { border-color: #065f46; color: var(--green); }
+    .tag.db { border-color: #7c2d12; color: var(--orange); }
+
+    /* EXPERIENCE */
+    .timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 0 40px; margin-bottom: 48px; }
+    .timeline-period { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-bottom: 4px; }
+    .timeline-company { font-size: 13px; font-weight: 600; color: var(--accent); }
+    .timeline-right { border-left: 1px solid var(--border); padding-left: 40px; }
+    .timeline-role { font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+    .timeline-stack { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-bottom: 16px; }
+    .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .timeline-bullets li { font-size: 15px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.7; }
+    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--muted2); }
+    .hl { color: var(--accent); font-weight: 500; }
+
+    /* REPOS */
+    .repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 16px; }
+    .repo-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; }
+    .repo-card:hover { border-color: #2a2a2a; transform: translateY(-2px); }
+    .repo-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .repo-name { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--accent); word-break: break-all; }
+    .repo-stars { display: flex; align-items: center; gap: 4px; font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--yellow); white-space: nowrap; flex-shrink: 0; }
+    .repo-desc { font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .repo-footer { display: flex; align-items: center; justify-content: space-between; }
+    .repo-lang { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .lang-go { background: #00acd7; } .lang-php { background: #8892be; } .lang-js { background: #f7df1e; }
+    .lang-python { background: #3572a5; } .lang-cpp { background: #f34b7d; } .lang-c { background: #888; }
+    .lang-vue { background: #41b883; }
+    .repo-date { font-size: 11px; color: var(--muted2); font-family: 'JetBrains Mono', monospace; }
+    .repos-divider { display: flex; align-items: center; gap: 16px; margin: 32px 0; color: var(--muted2); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+    .repos-divider::before,.repos-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* CHATBOT */
+    .chat-layout { display: grid; grid-template-columns: 1fr 360px; gap: 40px; align-items: start; }
+    .chat-intro h3 { font-size: 22px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .chat-intro p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+    .chat-suggestions { display: flex; flex-direction: column; gap: 8px; }
+    .chat-suggestion {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; font-size: 13px; color: var(--muted); cursor: pointer;
+      text-align: left; transition: all 0.15s; font-family: inherit;
+    }
+    .chat-suggestion:hover { border-color: var(--border2); color: var(--text); }
+
+    .chat-box {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      display: flex; flex-direction: column; height: 520px; overflow: hidden;
+    }
+    .chat-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chat-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--bg3);
+      border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+    .chat-header-info { flex: 1; }
+    .chat-header-name { font-size: 14px; font-weight: 600; color: var(--accent); }
+    .chat-header-status { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .chat-header-status .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .chat-messages::-webkit-scrollbar { width: 4px; } .chat-messages::-webkit-scrollbar-track { background: transparent; } .chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+    .msg { max-width: 85%; display: flex; flex-direction: column; gap: 4px; }
+    .msg.bot { align-self: flex-start; }
+    .msg.user { align-self: flex-end; }
+    .msg-bubble {
+      padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.55;
+    }
+    .msg.bot .msg-bubble { background: var(--bg3); color: var(--text); border-radius: 4px 12px 12px 12px; }
+    .msg.user .msg-bubble { background: #1a1a1a; color: var(--text); border: 1px solid var(--border2); border-radius: 12px 4px 12px 12px; }
+    .msg-time { font-size: 10px; color: var(--muted2); font-family: 'JetBrains Mono', monospace; }
+    .msg.user .msg-time { text-align: right; }
+    .chat-input-area { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+    .chat-input {
+      flex: 1; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; font-size: 13px; color: var(--text); font-family: inherit;
+      resize: none; outline: none; transition: border-color 0.2s;
+    }
+    .chat-input:focus { border-color: var(--border2); }
+    .chat-input::placeholder { color: var(--muted2); }
+    .chat-send {
+      background: var(--accent); color: #000; border: none; border-radius: 8px;
+      width: 38px; height: 38px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; flex-shrink: 0; align-self: flex-end;
+    }
+    .chat-send:hover { background: #d4d4d4; }
+    .chat-send svg { width: 16px; height: 16px; }
+    .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 10px 14px; }
+    .typing-indicator span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: typing 1.2s infinite; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%,60%,100%{opacity:0.3;transform:scale(1)} 30%{opacity:1;transform:scale(1.2)} }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px; }
+    .contact-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s; }
+    .contact-card:hover { border-color: var(--border2); }
+    .contact-card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .contact-card-value { font-size: 14px; font-weight: 500; color: var(--accent); word-break: break-all; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 32px 48px; max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-left { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+    .footer-right { font-size: 12px; color: var(--muted2); }
+
+    /* ANIMATIONS */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
+
+    /* MOBILE */
+    @media (max-width: 860px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 16px; }
+      section { padding: 72px 24px; }
+      .hero { padding: 100px 24px 72px; }
+      .charts-layout { grid-template-columns: 1fr; gap: 32px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+      .timeline-right { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .chat-layout { grid-template-columns: 1fr; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">walid.dev</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#chatbot">Ask me</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-badge"><span class="dot"></span>Available for opportunities · Hamburg, Germany</div>
+  <h1>Walid<br /><span class="dim">Laggoune</span></h1>
+  <p class="hero-sub">Senior Backend Engineer with 5+ years designing and scaling backend systems in PHP and Go — specializing in event-driven architectures processing millions of daily events for global e-commerce platforms.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years experience</span></div>
+    <div class="stat"><span class="stat-num">~50%</span><span class="stat-label">Memory reduction</span></div>
+    <div class="stat"><span class="stat-num">5×</span><span class="stat-label">Throughput gain</span></div>
+    <div class="stat"><span class="stat-num">70k+</span><span class="stat-label">Products scaled</span></div>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#chatbot">Ask me anything</a>
+    <a class="btn btn-ghost" href="https://github.com/LAGGOUNE-Walid" target="_blank">GitHub ↗</a>
+    <a class="btn btn-ghost" href="https://linkedin.com/in/walid-laggoune" target="_blank">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<section id="chatbot" class="section-border">
+  <div class="section-label fade-in">/ ask me</div>
+  <h2 class="fade-in">Recruiter chatbot</h2>
+  <p class="fade-in" style="color:var(--muted);font-size:14px;margin-bottom:40px;max-width:560px;">Powered by Claude AI — ask anything about Walid's experience, skills, projects, or availability.</p>
+  <div class="fade-in" style="border-radius:16px;overflow:hidden;border:1px solid var(--border);">
+    <iframe
+      src="https://walidlaggoune-walid-chatbot.hf.space"
+      width="100%"
+      height="600"
+      frameborder="0"
+      allow="microphone"
+      style="display:block;background:#0a0a0a;"
+    ></iframe>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section-border">
+  <div class="section-label fade-in">/ skills</div>
+  <h2 class="fade-in">Proficiency</h2>
+
+  <div class="charts-layout">
+    <div class="chart-block fade-in">
+      <div class="chart-block-title">Languages & Frameworks</div>
+      <div class="skill-bar-row" data-pct="95">
+        <div class="skill-bar-header"><span class="skill-bar-name">Go</span><span class="skill-bar-pct">95%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-go"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="98">
+        <div class="skill-bar-header"><span class="skill-bar-name">PHP / Laravel / Symfony</span><span class="skill-bar-pct">98%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-php"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="75">
+        <div class="skill-bar-header"><span class="skill-bar-name">JavaScript / Vue.js</span><span class="skill-bar-pct">75%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-js"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="60">
+        <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">60%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-arch"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="50">
+        <div class="skill-bar-header"><span class="skill-bar-name">C (learning)</span><span class="skill-bar-pct">50%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-db"></div></div>
+      </div>
+    </div>
+
+    <div class="chart-block fade-in">
+      <div class="chart-block-title">Architecture & Infrastructure</div>
+      <div class="skill-bar-row" data-pct="92">
+        <div class="skill-bar-header"><span class="skill-bar-name">Event-Driven / CQRS / DDD</span><span class="skill-bar-pct">92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-arch"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="88">
+        <div class="skill-bar-header"><span class="skill-bar-name">Docker / AWS / DevOps</span><span class="skill-bar-pct">88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-devops"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="90">
+        <div class="skill-bar-header"><span class="skill-bar-name">MySQL / MariaDB / MongoDB</span><span class="skill-bar-pct">90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-db"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="85">
+        <div class="skill-bar-header"><span class="skill-bar-name">Redis / Valkey / Caching</span><span class="skill-bar-pct">85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-go"></div></div>
+      </div>
+      <div class="skill-bar-row" data-pct="80">
+        <div class="skill-bar-header"><span class="skill-bar-name">REST / gRPC / GraphQL</span><span class="skill-bar-pct">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-php"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 56px;">
+    <div class="section-label" style="margin-bottom: 24px;">Tech tags</div>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">Backend</div>
+        <div class="skill-tags">
+          <span class="tag go">Go</span><span class="tag php">Laravel</span><span class="tag php">Symfony</span><span class="tag php">Lumen</span><span class="tag php">PHP-Swoole</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">Architecture</div>
+        <div class="skill-tags">
+          <span class="tag">CQRS</span><span class="tag">DDD</span><span class="tag">Event-Driven</span><span class="tag">Microservices</span><span class="tag">gRPC</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">Data & Messaging</div>
+        <div class="skill-tags">
+          <span class="tag db">MySQL</span><span class="tag db">PostgreSQL</span><span class="tag db">MongoDB</span><span class="tag db">Redis</span><span class="tag db">Valkey</span><span class="tag db">RabbitMQ</span><span class="tag db">Kafka</span><span class="tag db">AWS SQS</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">DevOps & Observability</div>
+        <div class="skill-tags">
+          <span class="tag infra">Docker</span><span class="tag infra">AWS ECS/S3/SNS</span><span class="tag infra">Nginx</span><span class="tag infra">HAProxy</span><span class="tag infra">GitLab CI</span><span class="tag infra">Prometheus</span><span class="tag infra">Grafana</span><span class="tag infra">Datadog</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">Go Ecosystem</div>
+        <div class="skill-tags">
+          <span class="tag go">chi</span><span class="tag go">gRPC</span><span class="tag go">protobuf</span><span class="tag go">kafka-go</span><span class="tag go">JWT</span><span class="tag go">testify</span><span class="tag go">goroutines</span><span class="tag go">channels</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section-border">
+  <div class="section-label fade-in">/ experience</div>
+  <h2 class="fade-in">Work history</h2>
+
+  <div class="timeline-item fade-in">
+    <div>
+      <div class="timeline-period">Dec 2025 — Present</div>
+      <div class="timeline-company">ABOUT YOU</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Hamburg, Germany</div>
+    </div>
+    <div class="timeline-right">
+      <div class="timeline-role">Senior Backend Engineer</div>
+      <div class="timeline-stack">Laravel · PHP · Go · gRPC · AWS SQS/S3/SNS · Valkey · Datadog</div>
+      <ul class="timeline-bullets">
+        <li>Architected a migration of PHP workers into a <span class="hl">Go reader / PHP consumer</span> split — <span class="hl">~50% memory reduction, ~5× throughput</span>.</li>
+        <li>Event-driven codebase processing <span class="hl">millions of daily events</span> from Adidas, Otto, and Tradebyte.</li>
+        <li>Applied <span class="hl">CQRS and DDD</span> to model complex merchant and product domains.</li>
+        <li>Resolved critical bugs with <span class="hl">six-figure financial exposure</span> across event-driven pipelines.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item fade-in">
+    <div>
+      <div class="timeline-period">May 2025 — Nov 2025</div>
+      <div class="timeline-company">CSA Research</div>
+    </div>
+    <div class="timeline-right">
+      <div class="timeline-role">Fullstack Developer</div>
+      <div class="timeline-stack">Laravel · PHP · MariaDB · Go</div>
+      <ul class="timeline-bullets">
+        <li>Modernized legacy backend systems for <span class="hl">Adobe, Dell, Mozilla, XTM International</span>.</li>
+        <li>Built a <span class="hl">Go-based AI chatbot</span> integrating OpenAI APIs for enterprise tools.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item fade-in">
+    <div>
+      <div class="timeline-period">Oct 2024 — Apr 2025</div>
+      <div class="timeline-company">Pulsetracker</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Founder</div>
+    </div>
+    <div class="timeline-right">
+      <div class="timeline-role">Founder & Backend Developer</div>
+      <div class="timeline-stack">Laravel · PHP-Swoole · WebSockets · TCP/IP · Nginx · MariaDB · Vue.js · Redis · Stripe</div>
+      <ul class="timeline-bullets">
+        <li>Built a <span class="hl">real-time location-tracking SaaS</span> from scratch with WebSocket, TCP, and UDP.</li>
+        <li>Scaled MariaDB storing <span class="hl">60K+ location records/day</span>.</li>
+        <li>Stripe subscriptions, geofencing, and developer-facing APIs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item fade-in">
+    <div>
+      <div class="timeline-period">Apr 2020 — Aug 2024</div>
+      <div class="timeline-company">ASEM Medical</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Algiers</div>
+    </div>
+    <div class="timeline-right">
+      <div class="timeline-role">Backend Developer</div>
+      <div class="timeline-stack">Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Vue.js · Redis · Meilisearch · AWS</div>
+      <ul class="timeline-bullets">
+        <li>Led a 3-person team building <span class="hl">REST + GraphQL APIs</span> across 4 interconnected mobile apps.</li>
+        <li>High-speed search over <span class="hl">70,000+ products</span> with Redis and Meilisearch.</li>
+        <li>Enabled <span class="hl">5× more concurrent users</span> via PHP-Swoole and Nginx optimization.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-item fade-in">
+    <div>
+      <div class="timeline-period">Nov 2020 — Nov 2023</div>
+      <div class="timeline-company">CELEC Club</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">USTHB, Algiers</div>
+    </div>
+    <div class="timeline-right">
+      <div class="timeline-role">Head of Digital Department</div>
+      <div class="timeline-stack">Laravel · Lumen · PHP-Swoole · Nginx · MySQL</div>
+      <ul class="timeline-bullets">
+        <li>Built <span class="hl">5+ APIs</span> for hackathons and event platforms.</li>
+        <li>Delivered <span class="hl">8+ free training sessions</span> on Laravel and backend engineering.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-border">
+  <div class="section-label fade-in">/ open source</div>
+  <h2 class="fade-in">GitHub repositories</h2>
+  <div class="repos-grid">
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-queue-worker-in-go" target="_blank">
+      <div class="repo-top"><div class="repo-name">laravel-queue-worker-in-go</div><div class="repo-stars">★ 25</div></div>
+      <div class="repo-desc">GO queue worker orchestrating PHP processes — high-throughput Laravel pipeline replacement.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Oct 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/geopulse" target="_blank">
+      <div class="repo-top"><div class="repo-name">geopulse</div><div class="repo-stars">★ 25</div></div>
+      <div class="repo-desc">PHP Location Tracking Server built with PHP-Swoole. Innovation Award — phpclasses.org.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Sep 2024</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/hydrogenframework" target="_blank">
+      <div class="repo-top"><div class="repo-name">hydrogenframework</div><div class="repo-stars">★ 8</div></div>
+      <div class="repo-desc">A simple web micro framework built in PHP.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">May 2019</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/hydrogen-console" target="_blank">
+      <div class="repo-top"><div class="repo-name">hydrogen-console</div><div class="repo-stars">★ 5</div></div>
+      <div class="repo-desc">PHP class for working with inputs/outputs from/to the GNU/Linux terminal.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jul 2017</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/QPHP-storage" target="_blank">
+      <div class="repo-top"><div class="repo-name">QPHP-storage</div><div class="repo-stars">★ 4</div></div>
+      <div class="repo-desc">Simple in-memory storage based on Swoole 4. Innovation Award — phpclasses.org.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jun 2022</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/mongodb-php-concurrency" target="_blank">
+      <div class="repo-top"><div class="repo-name">mongodb-php-concurrency</div><div class="repo-stars">★ 3</div></div>
+      <div class="repo-desc">Concurrency PHP library for MongoDB — safe concurrent reads/writes.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Aug 2023</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/trivium-cipher" target="_blank">
+      <div class="repo-top"><div class="repo-name">trivium-cipher</div><div class="repo-stars">★ 1</div></div>
+      <div class="repo-desc">Python implementation of the Trivium stream cipher from scratch — key scheduling, bitstream generation, encryption/decryption.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-python"></span>Python</div><div class="repo-date">Jan 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/webrtc" target="_blank">
+      <div class="repo-top"><div class="repo-name">webrtc</div><div class="repo-stars">★ 1</div></div>
+      <div class="repo-desc">Real-time peer-to-peer video application — Bachelor's final project.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-js"></span>JavaScript</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+  </div>
+
+  <div class="repos-divider fade-in">— recent (0 stars) —</div>
+
+  <div class="repos-grid">
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-event-driven-orders" target="_blank">
+      <div class="repo-top"><div class="repo-name">go-event-driven-orders</div></div>
+      <div class="repo-desc">Event-driven order processing system in Go.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/iot-smart-agriculture-monitoring-system" target="_blank">
+      <div class="repo-top"><div class="repo-name">iot-smart-agriculture-monitoring-system</div></div>
+      <div class="repo-desc">Wireless sensor network for real-time soil moisture, air quality, and visual surveillance monitoring.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-cpp"></span>C++</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-grpc-user-service" target="_blank">
+      <div class="repo-top"><div class="repo-name">go-grpc-user-service</div></div>
+      <div class="repo-desc">User service built with Go and gRPC.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-concurent-urls-checker" target="_blank">
+      <div class="repo-top"><div class="repo-name">go-concurent-urls-checker</div></div>
+      <div class="repo-desc">Concurrent URL health checker with worker pool pattern in Go.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/agencyplus-backend" target="_blank">
+      <div class="repo-top"><div class="repo-name">agencyplus-backend</div></div>
+      <div class="repo-desc">Go backend application built for real estate agencies.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/pulsetracker" target="_blank">
+      <div class="repo-top"><div class="repo-name">pulsetracker</div></div>
+      <div class="repo-desc">Source code of pulsestracker.com — SaaS for real-time location tracking built for developers.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jul 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/simple-go-virutal-machine" target="_blank">
+      <div class="repo-top"><div class="repo-name">simple-go-virtual-machine</div></div>
+      <div class="repo-desc">Tiny register-based virtual machine implemented in Go.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Sep 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/greenhouse-iot-backend" target="_blank">
+      <div class="repo-top"><div class="repo-name">greenhouse-iot-backend</div></div>
+      <div class="repo-desc">Laravel IoT-enabled greenhouse backend on Raspberry Pi with ESP-NOW sensor integration.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Oct 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/c-http-server" target="_blank">
+      <div class="repo-top"><div class="repo-name">c-http-server</div></div>
+      <div class="repo-desc">Simple HTTP server in C supporting GET requests — learning systems programming.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-c"></span>C</div><div class="repo-date">Mar 2025</div></div>
+    </a>
+    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-clean-architecture" target="_blank">
+      <div class="repo-top"><div class="repo-name">laravel-clean-architecture</div></div>
+      <div class="repo-desc">Clean Architecture demonstration in the Laravel Framework.</div>
+      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Apr 2024</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-border">
+  <div class="section-label fade-in">/ contact</div>
+  <h2 class="fade-in">Get in touch</h2>
+  <p class="fade-in" style="color:var(--muted);margin-bottom:40px;max-width:480px;font-size:15px;">Open to senior backend / fullstack roles. Based in Hamburg — happy to discuss remote or on-site opportunities.</p>
+  <div class="contact-grid">
+    <a class="contact-card fade-in" href="mailto:walidlaggoune159@gmail.com">
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">walidlaggoune159@gmail.com</div>
+    </a>
+    <a class="contact-card fade-in" href="https://github.com/LAGGOUNE-Walid" target="_blank">
+      <div class="contact-card-label">GitHub</div>
+      <div class="contact-card-value">LAGGOUNE-Walid</div>
+    </a>
+    <a class="contact-card fade-in" href="https://linkedin.com/in/walid-laggoune" target="_blank">
+      <div class="contact-card-label">LinkedIn</div>
+      <div class="contact-card-value">walid-laggoune</div>
+    </a>
+    <a class="contact-card fade-in" href="tel:+4916236096057">
+      <div class="contact-card-label">Phone</div>
+      <div class="contact-card-value">+49 1623696057</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">walid@laggoune ~ $ <span style="opacity:0.4">▋</span></div>
+  <div class="footer-right">Hamburg · Senior Backend Engineer · 2026</div>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 60 + 'ms';
+  observer.observe(el);
+});
+
+// ── SKILL BARS ──
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const pct = e.target.dataset.pct;
+      e.target.querySelector('.skill-bar-fill').style.width = pct + '%';
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skill-bar-row').forEach(el => barObserver.observe(el));
+
+// ── CHATBOT ──
+const KB = [
+  {
+    keys: ['experience','years','background','work history','career'],
+    answer: `Walid has 5+ years of professional backend engineering experience. He's currently a **Senior Backend Engineer at ABOUT YOU** (Hamburg, Dec 2025–present), previously a Fullstack Developer at CSA Research, founder of Pulsetracker SaaS, Backend Developer at ASEM Medical (4 years), and Head of Digital at CELEC Club (USTHB).`
+  },
+  {
+    keys: ['go','golang'],
+    answer: `Walid is highly proficient in Go (~95%). He uses it daily at ABOUT YOU — he architected a Go reader / PHP consumer split that reduced memory usage by ~50% and improved throughput by ~5×. He's also built Go-based gRPC services, ingestion pipelines, a virtual machine, fan-out pipelines, concurrent URL checkers, gRPC user services, and an AI chatbot backend.`
+  },
+  {
+    keys: ['php','laravel','symfony'],
+    answer: `PHP is Walid's strongest language (98% proficiency). He's an expert in Laravel, Symfony, Lumen, Slim, and PHP-Swoole. He's used it professionally for 5+ years — building REST/GraphQL APIs, event-driven queues, real-time WebSocket servers, SaaS platforms, and microservices.`
+  },
+  {
+    keys: ['about you','aboutyou','current job','current company','current role'],
+    answer: `Walid currently works as a **Senior Backend Engineer at ABOUT YOU** in Hamburg (December 2025–present). He's working on a large-scale event-driven platform processing millions of daily product events from partners like Adidas, Otto, and Tradebyte. He applies CQRS and DDD, and has resolved critical incidents with six-figure financial exposure.`
+  },
+  {
+    keys: ['pulsetracker','saas','founder','startup'],
+    answer: `Pulsetracker is a **real-time location-tracking SaaS platform** Walid founded and built from scratch (Oct 2024–Apr 2025). It handles concurrent WebSocket, TCP, and UDP connections using PHP-Swoole, stores 60K+ location records/day in MariaDB, and includes geofencing, live tracking, and Stripe subscriptions. It won an **Innovation Award** on phpclasses.org.`
+  },
+  {
+    keys: ['geopulse','location tracking','udp server'],
+    answer: `Geopulse is a high-performance PHP UDP location tracking server Walid built using PHP-Swoole. It won an **Innovation Award on phpclasses.org** and has 25 GitHub stars. It's the open-source predecessor to Pulsetracker.`
+  },
+  {
+    keys: ['asem','medical','q-commerce','qcommerce'],
+    answer: `At ASEM Medical (Apr 2020–Aug 2024), Walid led a 3-person backend team building REST and GraphQL APIs across 4 interconnected apps (grocery, food delivery, merchant management, recipe reels). He built a search system for 70,000+ products, applied DDD, and improved concurrency by 5× using PHP-Swoole.`
+  },
+  {
+    keys: ['available','availability','looking','open to','hire','hiring','job','opportunity','role','position'],
+    answer: `Yes! Walid is **open to senior backend and fullstack roles**. He's based in **Hamburg, Germany** and is happy to discuss both remote and on-site opportunities. You can reach him at walidlaggoune159@gmail.com or +49 1623696057.`
+  },
+  {
+    keys: ['salary','rate','compensation','expect'],
+    answer: `For salary expectations, it's best to reach out directly at walidlaggoune159@gmail.com — he's happy to discuss based on the role and company.`
+  },
+  {
+    keys: ['achievement','proud','best','biggest','impact','notable'],
+    answer: `Walid's biggest technical achievement was **architecting a Go reader / PHP consumer split** at ABOUT YOU that reduced memory usage by ~50% and improved throughput by ~5× on a pipeline processing millions of daily events. He also founded Pulsetracker (Innovation Award winner) and built a 70,000-product search system at ASEM Medical.`
+  },
+  {
+    keys: ['stack','prefer','favourite','favorite','tech','technology'],
+    answer: `Walid's preferred stack is **Go + PHP (Laravel/Symfony)** for backend, with PostgreSQL/MariaDB, Redis/Valkey, and event-driven messaging (SQS, RabbitMQ). For architecture he prefers CQRS, DDD, and microservices. On the frontend he uses Vue.js and Alpine.js.`
+  },
+  {
+    keys: ['education','degree','university','masters','master','usthb','algiers'],
+    answer: `Walid holds a **Master's Degree in Mobile Radio Networks Engineering** from the University of Science and Technology Houari Boumediene (USTHB), Algiers. His thesis covered real-time IoT data collection using ESP-NOW, low-bandwidth radio, and ESP32 embedded hardware.`
+  },
+  {
+    keys: ['aws','cloud','devops','docker','ci','cd','gitlab','nginx'],
+    answer: `Walid has solid DevOps skills: Docker, Docker Swarm, Nginx, HAProxy, AWS (ECS, ECR, SQS, RDS, EC2, S3, SNS), GitLab CI/CD. He's used AWS SQS extensively at ABOUT YOU for at-least-once delivery of millions of daily events.`
+  },
+  {
+    keys: ['cqrs','ddd','domain driven','event driven','architecture','microservices'],
+    answer: `Walid has deep expertise in **CQRS, DDD, and Event-Driven Architecture**. He applies these daily at ABOUT YOU in a codebase processing millions of events. He's also experienced with REST, gRPC, GraphQL, and microservices across multiple companies.`
+  },
+  {
+    keys: ['database','mysql','mariadb','mongodb','redis','valkey','postgres'],
+    answer: `Walid is experienced with MySQL, MariaDB, MongoDB, Redis, Valkey, and Memcached. He's scaled MariaDB to 60K+ records/day (Pulsetracker), built a 70,000-product search system with Meilisearch and Redis, and implemented high-performance caching with Valkey at ABOUT YOU.`
+  },
+  {
+    keys: ['open source','github','stars','project','repo'],
+    answer: `Walid's top open-source projects are: **laravel-queue-worker-in-go** (25⭐), **geopulse** (25⭐, Innovation Award), **hydrogenframework** (8⭐). He also built trivium-cipher (Python cryptography), a Go virtual machine, and many Go learning projects. See all repos at github.com/LAGGOUNE-Walid.`
+  },
+  {
+    keys: ['language','python','javascript','c language','lua'],
+    answer: `Walid's primary languages are **Go** and **PHP**. He also knows JavaScript/Vue.js, Python, C (learning), Lua, and HackLang. He's implemented a Trivium stream cipher in Python and is actively learning low-level systems programming in C.`
+  },
+  {
+    keys: ['celec','teaching','training','mentor','instructor'],
+    answer: `Walid was Head of Digital at CELEC Club (USTHB) for 3 years. He delivered **8+ free training sessions** on Laravel, backend engineering, and database management. He's a certified PHP and Laravel instructor by CELEC, and was recognized with an appreciation award for his work on the CELEC website.`
+  },
+  {
+    keys: ['iot','embedded','esp32','lora','esp-now','sensor','raspberry'],
+    answer: `Walid has hands-on IoT experience — his Master's thesis was on real-time IoT data collection using ESP-NOW, LoRa, and ESP32. He also built a Laravel-based backend for an IoT greenhouse on Raspberry Pi, and an agricultural monitoring system with wireless sensor networks.`
+  },
+  {
+    keys: ['grpc','graphql','rest','api'],
+    answer: `Walid is experienced with REST, GraphQL, gRPC, OAuth 2.0, and JWT. He's built gRPC services in Go at ABOUT YOU, designed GraphQL APIs at ASEM Medical, and used gRPC for inter-service communication in microservice architectures.`
+  },
+  {
+    keys: ['contact','email','phone','reach','linkedin','message'],
+    answer: `You can contact Walid at:\n📧 walidlaggoune159@gmail.com\n📞 +49 1623696057\n💼 linkedin.com/in/walid-laggoune\n🐙 github.com/LAGGOUNE-Walid`
+  },
+  {
+    keys: ['who is','who are','introduce','about walid','tell me about walid','about yourself','about him','describe walid','summary','overview','profile'],
+    answer: `Walid Laggoune is a **Senior Backend Engineer / Fullstack developer** with 5+ years of experience based in Hamburg, Germany.\n\nHe specializes in **Go and PHP (Laravel/Symfony)**, with deep expertise in event-driven architectures, CQRS, and DDD. He currently works at **ABOUT YOU** (a major German fashion e-commerce platform) where he processes millions of daily product events from partners like Adidas and Otto.\n\nHe previously founded **Pulsetracker** (a real-time location tracking SaaS), worked at ASEM Medical leading a backend team for a Q-commerce ecosystem, and holds a Master's degree in Mobile Radio Networks Engineering.\n\nHis open-source projects have won multiple Innovation Awards on phpclasses.org.`
+  },
+  {
+    keys: ['hello','hi','hey','greet','good morning','good afternoon','howdy'],
+    answer: `Hello! I'm Walid's assistant. Ask me anything about his skills, experience, projects, or availability — I'm happy to help!`
+  },
+  {
+    keys: ['location','based','where','city','country','remote','hamburg'],
+    answer: `Walid is based in **Hamburg, Germany**. He's open to both on-site and remote positions.`
+  },
+  {
+    keys: ['csa research','adobe','dell','mozilla','xtm'],
+    answer: `At CSA Research (May–Nov 2025), Walid modernized legacy enterprise backend systems for clients including **Adobe, Dell, Mozilla, and XTM International**. He also built a Go-based AI chatbot backend integrating OpenAI APIs for enterprise tools.`
+  },
+  {
+    keys: ['webrtc','video','peer','real-time video'],
+    answer: `Walid built a real-time peer-to-peer video application using WebRTC as his Bachelor's final project. It's available on GitHub at github.com/LAGGOUNE-Walid/webrtc.`
+  },
+  {
+    keys: ['security','cryptography','crypto','cipher','trivium'],
+    answer: `Walid has a background in cybersecurity fundamentals (certified course). He implemented the Trivium stream cipher from scratch in Python — covering key scheduling, bitstream generation, and encryption/decryption. He's also familiar with security vulnerabilities and secure coding practices.`
+  },
+  {
+    keys: ['innovation','award','recognition'],
+    answer: `Walid has received multiple Innovation Awards from phpclasses.org for **Geopulse** (location tracking server) and **QPHP** (Swoole queue server). He was also recognized with certifications and appreciations from CELEC Club as PHP and Laravel instructor and Head of Digital.`
+  },
+];
+
+function findAnswer(q) {
+  const ql = q.toLowerCase();
+  let best = null, bestScore = 0;
+  for (const entry of KB) {
+    let score = 0;
+    for (const k of entry.keys) {
+      if (ql.includes(k)) score += k.length;
+    }
+    if (score > bestScore) { bestScore = score; best = entry.answer; }
+  }
+  if (best) return best;
+  return `I don't have a specific answer for that, but you can reach Walid directly at **walidlaggoune159@gmail.com** — he'd be happy to answer any questions about his background!`;
+}
+
+function formatAnswer(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+function now() {
+  return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+
+function appendMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${type}`;
+  div.innerHTML = `<div class="msg-bubble">${formatAnswer(text)}</div><div class="msg-time">${now()}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.id = 'typing';
+  div.innerHTML = `<div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  appendMsg(text, 'user');
+  input.value = '';
+  input.style.height = 'auto';
+  showTyping();
+  const delay = 600 + Math.random() * 600;
+  setTimeout(() => {
+    removeTyping();
+    appendMsg(findAnswer(text), 'bot');
+  }, delay);
+}
+
+function sendSuggestion(btn) {
+  const input = document.getElementById('chatInput');
+  input.value = btn.textContent;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+// auto-resize textarea
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+</script>
+</body>
+</html>
