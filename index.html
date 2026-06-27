@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walid Laggoune — Senior Backend Engineer</title>
+  <title>Walid Laggoune, Senior Backend Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -226,6 +226,17 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+    /* SHIMMER */
+    .shimmer {
+      background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     /* SCROLLBAR */
     ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
 
@@ -262,7 +273,7 @@
 <div class="hero" id="about">
   <div class="hero-badge"><span class="dot"></span>Available for opportunities · Hamburg, Germany</div>
   <h1>Walid<br /><span class="dim">Laggoune</span></h1>
-  <p class="hero-sub">Senior Backend Engineer with 5+ years designing and scaling backend systems in PHP and Go — specializing in event-driven architectures processing millions of daily events for global e-commerce platforms.</p>
+  <p class="hero-sub">Five years building backend systems in PHP and Go. Currently at ABOUT YOU, processing millions of product events daily from Adidas, Otto, and Tradebyte. Before that: founded a real-time tracking SaaS, led a backend team through 70k+ product search at ASEM Medical.</p>
   <div class="hero-stats">
     <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years experience</span></div>
     <div class="stat"><span class="stat-num">~50%</span><span class="stat-label">Memory reduction</span></div>
@@ -273,6 +284,7 @@
     <a class="btn btn-primary" href="#chatbot">Ask me anything</a>
     <a class="btn btn-ghost" href="https://github.com/LAGGOUNE-Walid" target="_blank">GitHub ↗</a>
     <a class="btn btn-ghost" href="https://www.linkedin.com/in/walid-laggoune-295ab824a/" target="_blank">LinkedIn ↗</a>
+    <a class="btn btn-ghost" href="https://dev.to/l_walid" target="_blank">Blog ↗</a>
   </div>
 </div>
 
@@ -280,15 +292,35 @@
 <section id="chatbot" class="section-border">
   <div class="section-label fade-in">/ ask me</div>
   <h2 class="fade-in">Recruiter chatbot</h2>
-  <p class="fade-in" style="color:var(--muted);font-size:14px;margin-bottom:40px;max-width:560px;">Powered by Claude AI — ask anything about Walid's experience, skills, projects, or availability.</p>
-  <div class="fade-in" style="border-radius:16px;overflow:hidden;border:1px solid var(--border);">
+  <p class="fade-in" style="color:var(--muted);font-size:14px;margin-bottom:40px;max-width:560px;">Powered by Claude. Ask it anything about Walid — experience, stack, projects, availability.</p>
+  <div class="fade-in" style="border-radius:16px;overflow:hidden;border:1px solid var(--border);position:relative;">
+    <!-- shimmer skeleton -->
+    <div id="chatShimmer" style="position:absolute;inset:0;background:#0f0f0f;z-index:2;padding:24px;display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <div class="shimmer" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+          <div class="shimmer" style="width:140px;height:14px;border-radius:4px;"></div>
+          <div class="shimmer" style="width:80px;height:11px;border-radius:4px;"></div>
+        </div>
+      </div>
+      <div class="shimmer" style="width:75%;height:44px;border-radius:10px;align-self:flex-start;"></div>
+      <div class="shimmer" style="width:55%;height:44px;border-radius:10px;align-self:flex-end;"></div>
+      <div class="shimmer" style="width:80%;height:68px;border-radius:10px;align-self:flex-start;"></div>
+      <div class="shimmer" style="width:45%;height:44px;border-radius:10px;align-self:flex-end;"></div>
+      <div style="margin-top:auto;display:flex;gap:8px;align-items:center;">
+        <div class="shimmer" style="flex:1;height:42px;border-radius:8px;"></div>
+        <div class="shimmer" style="width:42px;height:42px;border-radius:8px;flex-shrink:0;"></div>
+      </div>
+    </div>
     <iframe
+      id="chatIframe"
       src="https://walidlaggoune-walid-chatbot.hf.space"
       width="100%"
       height="600"
       frameborder="0"
       allow="microphone"
-      style="display:block;background:#0a0a0a;"
+      style="display:block;background:#0a0a0a;position:relative;z-index:1;"
+      onload="document.getElementById('chatShimmer').style.display='none'"
     ></iframe>
   </div>
 </section>
@@ -392,7 +424,7 @@
 
   <div class="timeline-item fade-in">
     <div>
-      <div class="timeline-period">Dec 2025 — Present</div>
+      <div class="timeline-period">Dec 2025 - Present</div>
       <div class="timeline-company">ABOUT YOU</div>
       <div style="font-size:11px;color:var(--muted);margin-top:4px;">Hamburg, Germany</div>
     </div>
@@ -400,7 +432,7 @@
       <div class="timeline-role">Senior Backend Engineer</div>
       <div class="timeline-stack">Laravel · PHP · Go · gRPC · AWS SQS/S3/SNS · Valkey · Datadog</div>
       <ul class="timeline-bullets">
-        <li>Architected a migration of PHP workers into a <span class="hl">Go reader / PHP consumer</span> split — <span class="hl">~50% memory reduction, ~5× throughput</span>.</li>
+        <li>Architected a migration of PHP workers into a <span class="hl">Go reader / PHP consumer</span> split: <span class="hl">~50% memory reduction, ~5× throughput</span>.</li>
         <li>Event-driven codebase processing <span class="hl">millions of daily events</span> from Adidas, Otto, and Tradebyte.</li>
         <li>Applied <span class="hl">CQRS and DDD</span> to model complex merchant and product domains.</li>
         <li>Resolved critical bugs with <span class="hl">six-figure financial exposure</span> across event-driven pipelines.</li>
@@ -410,7 +442,7 @@
 
   <div class="timeline-item fade-in">
     <div>
-      <div class="timeline-period">May 2025 — Nov 2025</div>
+      <div class="timeline-period">May 2025 - Nov 2025</div>
       <div class="timeline-company">CSA Research</div>
     </div>
     <div class="timeline-right">
@@ -425,7 +457,7 @@
 
   <div class="timeline-item fade-in">
     <div>
-      <div class="timeline-period">Oct 2024 — Apr 2025</div>
+      <div class="timeline-period">Oct 2024 - Apr 2025</div>
       <div class="timeline-company">Pulsetracker</div>
       <div style="font-size:11px;color:var(--muted);margin-top:4px;">Founder</div>
     </div>
@@ -442,7 +474,7 @@
 
   <div class="timeline-item fade-in">
     <div>
-      <div class="timeline-period">Apr 2020 — Aug 2024</div>
+      <div class="timeline-period">Apr 2020 - Aug 2024</div>
       <div class="timeline-company">ASEM Medical</div>
       <div style="font-size:11px;color:var(--muted);margin-top:4px;">Algiers</div>
     </div>
@@ -459,7 +491,7 @@
 
   <div class="timeline-item fade-in">
     <div>
-      <div class="timeline-period">Nov 2020 — Nov 2023</div>
+      <div class="timeline-period">Nov 2020 - Nov 2023</div>
       <div class="timeline-company">CELEC Club</div>
       <div style="font-size:11px;color:var(--muted);margin-top:4px;">USTHB, Algiers</div>
     </div>
@@ -481,12 +513,12 @@
   <div class="repos-grid">
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-queue-worker-in-go" target="_blank">
       <div class="repo-top"><div class="repo-name">laravel-queue-worker-in-go</div><div class="repo-stars">★ 25</div></div>
-      <div class="repo-desc">GO queue worker orchestrating PHP processes — high-throughput Laravel pipeline replacement.</div>
+      <div class="repo-desc">GO queue worker orchestrating PHP processes. High-throughput Laravel pipeline replacement.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Oct 2025</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/geopulse" target="_blank">
       <div class="repo-top"><div class="repo-name">geopulse</div><div class="repo-stars">★ 25</div></div>
-      <div class="repo-desc">PHP Location Tracking Server built with PHP-Swoole. Innovation Award — phpclasses.org.</div>
+      <div class="repo-desc">PHP Location Tracking Server built with PHP-Swoole. Innovation Award, phpclasses.org.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Sep 2024</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/hydrogenframework" target="_blank">
@@ -501,27 +533,27 @@
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/QPHP-storage" target="_blank">
       <div class="repo-top"><div class="repo-name">QPHP-storage</div><div class="repo-stars">★ 4</div></div>
-      <div class="repo-desc">Simple in-memory storage based on Swoole 4. Innovation Award — phpclasses.org.</div>
+      <div class="repo-desc">Simple in-memory storage based on Swoole 4. Innovation Award, phpclasses.org.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jun 2022</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/mongodb-php-concurrency" target="_blank">
       <div class="repo-top"><div class="repo-name">mongodb-php-concurrency</div><div class="repo-stars">★ 3</div></div>
-      <div class="repo-desc">Concurrency PHP library for MongoDB — safe concurrent reads/writes.</div>
+      <div class="repo-desc">Concurrency PHP library for MongoDB. Safe concurrent reads/writes.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Aug 2023</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/trivium-cipher" target="_blank">
       <div class="repo-top"><div class="repo-name">trivium-cipher</div><div class="repo-stars">★ 1</div></div>
-      <div class="repo-desc">Python implementation of the Trivium stream cipher from scratch — key scheduling, bitstream generation, encryption/decryption.</div>
+      <div class="repo-desc">Python implementation of the Trivium stream cipher from scratch: key scheduling, bitstream generation, encryption/decryption.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-python"></span>Python</div><div class="repo-date">Jan 2025</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/webrtc" target="_blank">
       <div class="repo-top"><div class="repo-name">webrtc</div><div class="repo-stars">★ 1</div></div>
-      <div class="repo-desc">Real-time peer-to-peer video application — Bachelor's final project.</div>
+      <div class="repo-desc">Real-time peer-to-peer video application. Bachelor's final project.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-js"></span>JavaScript</div><div class="repo-date">Jun 2026</div></div>
     </a>
   </div>
 
-  <div class="repos-divider fade-in">— recent (0 stars) —</div>
+  <div class="repos-divider fade-in">recent (0 stars)</div>
 
   <div class="repos-grid">
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-event-driven-orders" target="_blank">
@@ -551,7 +583,7 @@
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/pulsetracker" target="_blank">
       <div class="repo-top"><div class="repo-name">pulsetracker</div></div>
-      <div class="repo-desc">Source code of pulsestracker.com — SaaS for real-time location tracking built for developers.</div>
+      <div class="repo-desc">Source code of pulsestracker.com, a real-time location tracking SaaS built for developers.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jul 2025</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/simple-go-virutal-machine" target="_blank">
@@ -566,7 +598,7 @@
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/c-http-server" target="_blank">
       <div class="repo-top"><div class="repo-name">c-http-server</div></div>
-      <div class="repo-desc">Simple HTTP server in C supporting GET requests — learning systems programming.</div>
+      <div class="repo-desc">Simple HTTP server in C supporting GET requests. Learning systems programming from scratch.</div>
       <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-c"></span>C</div><div class="repo-date">Mar 2025</div></div>
     </a>
     <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-clean-architecture" target="_blank">
@@ -581,7 +613,7 @@
 <section id="contact" class="section-border">
   <div class="section-label fade-in">/ contact</div>
   <h2 class="fade-in">Get in touch</h2>
-  <p class="fade-in" style="color:var(--muted);margin-bottom:40px;max-width:480px;font-size:15px;">Open to senior backend / fullstack roles. Based in Hamburg — happy to discuss remote or on-site opportunities.</p>
+  <p class="fade-in" style="color:var(--muted);margin-bottom:40px;max-width:480px;font-size:15px;">Looking for senior backend or fullstack work. Hamburg-based, open to remote.</p>
   <div class="contact-grid">
     <a class="contact-card fade-in" href="mailto:walidlaggoune159@gmail.com">
       <div class="contact-card-label">Email</div>
@@ -598,6 +630,10 @@
     <a class="contact-card fade-in" href="tel:+4916236096057">
       <div class="contact-card-label">Phone</div>
       <div class="contact-card-value">+49 1623696057</div>
+    </a>
+    <a class="contact-card fade-in" href="https://dev.to/l_walid" target="_blank">
+      <div class="contact-card-label">Blog</div>
+      <div class="contact-card-value">dev.to/l_walid</div>
     </a>
   </div>
 </section>
