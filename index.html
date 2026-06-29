@@ -126,7 +126,7 @@
     .timeline-stack { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-bottom: 16px; }
     .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .timeline-bullets li { font-size: 15px; color: #bbb; padding-left: 16px; position: relative; line-height: 1.7; }
-    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--muted2); }
+    .timeline-bullets li::before { content: '-'; position: absolute; left: 0; color: var(--muted2); }
     .hl { color: var(--accent); font-weight: 500; }
 
     /* REPOS */
@@ -273,7 +273,7 @@
 <div class="hero" id="about">
   <div class="hero-badge"><span class="dot"></span>Available for opportunities · Hamburg, Germany</div>
   <h1>Walid<br /><span class="dim">Laggoune</span></h1>
-  <p class="hero-sub">Five years building backend systems in PHP and Go. Currently at ABOUT YOU, processing millions of product events daily from Adidas, Otto, and Tradebyte. Before that: founded a real-time tracking SaaS, led a backend team through 70k+ product search at ASEM Medical.</p>
+  <p class="hero-sub">Senior Backend Engineer specializing in Go and PHP, building distributed systems at scale. Currently at ABOUT YOU processing millions of daily product events from Adidas, Otto, and Tradebyte. Previously founded a real-time SaaS hitting 10K concurrent connections, and led a backend team serving 70K+ SKU search at ASEM Medical.</p>
   <div class="hero-stats">
     <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years experience</span></div>
     <div class="stat"><span class="stat-num">~50%</span><span class="stat-label">Memory reduction</span></div>
@@ -292,7 +292,7 @@
 <section id="chatbot" class="section-border">
   <div class="section-label fade-in">/ ask me</div>
   <h2 class="fade-in">Recruiter chatbot</h2>
-  <p class="fade-in" style="color:var(--muted);font-size:14px;margin-bottom:40px;max-width:560px;">Powered by Claude. Ask it anything about Walid — experience, stack, projects, availability.</p>
+  <p class="fade-in" style="color:var(--muted);font-size:14px;margin-bottom:40px;max-width:560px;">Powered by Claude. Ask it anything about Walid - experience, stack, projects, availability.</p>
   <div class="fade-in" style="border-radius:16px;overflow:hidden;border:1px solid var(--border);position:relative;">
     <!-- shimmer skeleton -->
     <div id="chatShimmer" style="position:absolute;inset:0;background:#0f0f0f;z-index:2;padding:24px;display:flex;flex-direction:column;gap:16px;">
@@ -366,7 +366,7 @@
         <div class="skill-bar-track"><div class="skill-bar-fill fill-devops"></div></div>
       </div>
       <div class="skill-bar-row" data-pct="90">
-        <div class="skill-bar-header"><span class="skill-bar-name">MySQL / MariaDB / MongoDB</span><span class="skill-bar-pct">90%</span></div>
+        <div class="skill-bar-header"><span class="skill-bar-name">PostgreSQL / MySQL / MariaDB / MongoDB</span><span class="skill-bar-pct">90%</span></div>
         <div class="skill-bar-track"><div class="skill-bar-fill fill-db"></div></div>
       </div>
       <div class="skill-bar-row" data-pct="85">
@@ -384,9 +384,9 @@
     <div class="section-label" style="margin-bottom: 24px;">Tech tags</div>
     <div class="skills-grid">
       <div class="skill-card fade-in">
-        <div class="skill-card-title">Backend</div>
+        <div class="skill-card-title">PHP Ecosystem</div>
         <div class="skill-tags">
-          <span class="tag go">Go</span><span class="tag php">Laravel</span><span class="tag php">Symfony</span><span class="tag php">Lumen</span><span class="tag php">Slim</span><span class="tag php">PHP-Swoole</span><span class="tag">Python / Flask</span>
+          <span class="tag php">Laravel</span><span class="tag php">Symfony</span><span class="tag php">Lumen</span><span class="tag php">Slim</span><span class="tag php">PHP-Swoole</span><span class="tag php">Laravel Queues</span><span class="tag php">Laravel Horizon</span><span class="tag php">Laravel Octane</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -398,7 +398,7 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">Architecture & API</div>
         <div class="skill-tags">
-          <span class="tag">CQRS</span><span class="tag">DDD</span><span class="tag">Event-Driven</span><span class="tag">Microservices</span><span class="tag">Design Patterns</span><span class="tag">REST</span><span class="tag">GraphQL</span><span class="tag">gRPC</span><span class="tag">OAuth 2.0</span><span class="tag">JWT</span>
+          <span class="tag">CQRS</span><span class="tag">DDD</span><span class="tag">Event-Driven</span><span class="tag">Microservices</span><span class="tag">High-Availability Pipelines</span><span class="tag">Design Patterns</span><span class="tag">REST</span><span class="tag">GraphQL</span><span class="tag">gRPC</span><span class="tag">WebSocket</span><span class="tag">TCP/UDP</span><span class="tag">OAuth 2.0</span><span class="tag">JWT</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -410,7 +410,7 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">Messaging & Performance</div>
         <div class="skill-tags">
-          <span class="tag db">Kafka</span><span class="tag db">RabbitMQ</span><span class="tag db">AWS SQS</span><span class="tag db">Beanstalkd</span><span class="tag db">WebSockets</span><span class="tag db">TCP/UDP</span>
+          <span class="tag db">AWS SQS/SNS</span><span class="tag db">RabbitMQ</span><span class="tag db">Beanstalkd</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -422,13 +422,13 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">Testing</div>
         <div class="skill-tags">
-          <span class="tag">TDD</span><span class="tag">Unit</span><span class="tag">Feature</span><span class="tag">Integration</span><span class="tag">Load Testing</span><span class="tag">testify</span><span class="tag">PHPUnit</span>
+          <span class="tag">TDD</span><span class="tag">Unit</span><span class="tag">Integration</span><span class="tag">Feature</span><span class="tag">Load Testing</span><span class="tag">testify</span><span class="tag">gomock</span><span class="tag">PHPUnit</span><span class="tag">Pest</span>
         </div>
       </div>
       <div class="skill-card fade-in">
         <div class="skill-card-title">Go Ecosystem</div>
         <div class="skill-tags">
-          <span class="tag go">chi</span><span class="tag go">gRPC</span><span class="tag go">protobuf</span><span class="tag go">kafka-go</span><span class="tag go">goroutines</span><span class="tag go">channels</span><span class="tag go">worker pools</span><span class="tag go">rate limiting</span>
+          <span class="tag go">net/http</span><span class="tag go">chi</span><span class="tag go">Gin</span><span class="tag go">Fiber</span><span class="tag go">gorilla/mux</span><span class="tag go">gRPC</span><span class="tag go">Protocol Buffers</span><span class="tag go">cobra</span><span class="tag go">viper</span><span class="tag go">zap</span><span class="tag go">zerolog</span><span class="tag go">go-redis</span><span class="tag go">GORM</span><span class="tag go">sqlx</span><span class="tag go">pgx</span><span class="tag go">testify</span><span class="tag go">gomock</span><span class="tag go">golangci-lint</span><span class="tag go">air</span><span class="tag go">delve</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -456,10 +456,12 @@
       <div class="timeline-role">Senior Backend Engineer</div>
       <div class="timeline-stack">Laravel · PHP · Go · gRPC · AWS SQS/S3/SNS · Valkey · Datadog</div>
       <ul class="timeline-bullets">
-        <li>Architected a migration of PHP workers into a <span class="hl">Go reader / PHP consumer</span> split: <span class="hl">~50% memory reduction, ~5× throughput</span>.</li>
-        <li>Event-driven codebase processing <span class="hl">millions of daily events</span> from Adidas, Otto, and Tradebyte.</li>
-        <li>Applied <span class="hl">CQRS and DDD</span> to model complex merchant and product domains.</li>
-        <li>Resolved critical bugs with <span class="hl">six-figure financial exposure</span> across event-driven pipelines.</li>
+        <li>Cut worker memory by <span class="hl">~50%</span> and increased throughput <span class="hl">~5×</span> by redesigning monolithic PHP workers into a <span class="hl">Go reader / PHP consumer</span> architecture, removing blocking I/O from the critical path.</li>
+        <li>Guaranteed <span class="hl">at-least-once delivery</span> for millions of daily product events via a resilient <span class="hl">AWS SNS/SQS pipeline</span> with dead-letter queues and retry policies.</li>
+        <li>Reduced DB contention on high-frequency merchant updates with a <span class="hl">low-latency Valkey caching layer</span>, decoupling hot-path reads from RDS.</li>
+        <li>Modeled complex merchant and product domains using <span class="hl">CQRS and DDD</span> across data from Adidas, Otto, and Tradebyte.</li>
+        <li>Maintained low memory footprint on large catalog ingestion by engineering <span class="hl">chunked S3-staged Laravel jobs</span> and Go ingestion services.</li>
+        <li>Resolved <span class="hl">six-figure financial exposure incidents</span> by triaging critical bugs across event-driven pipelines under time pressure.</li>
       </ul>
     </div>
   </div>
@@ -473,8 +475,8 @@
       <div class="timeline-role">Fullstack Developer</div>
       <div class="timeline-stack">Laravel · PHP · MariaDB · Go</div>
       <ul class="timeline-bullets">
-        <li>Modernized legacy backend systems for <span class="hl">Adobe, Dell, Mozilla, XTM International</span>.</li>
-        <li>Built a <span class="hl">Go-based AI chatbot</span> integrating OpenAI APIs for enterprise tools.</li>
+        <li>Delivered a <span class="hl">Go-based AI chatbot backend</span> integrating OpenAI APIs for enterprise clients including Adobe, Dell, Mozilla, and XTM International.</li>
+        <li>Reduced <span class="hl">80% of legacy technical debt</span> by modernizing and re-architecting enterprise backend systems, improving maintainability and deployment reliability.</li>
       </ul>
     </div>
   </div>
@@ -489,9 +491,10 @@
       <div class="timeline-role">Founder & Backend Developer</div>
       <div class="timeline-stack">Laravel · PHP-Swoole · WebSockets · TCP/IP · Nginx · MariaDB · Vue.js · Redis · Stripe</div>
       <ul class="timeline-bullets">
-        <li>Built a <span class="hl">real-time location-tracking SaaS</span> from scratch with WebSocket, TCP, and UDP.</li>
-        <li>Scaled MariaDB storing <span class="hl">60K+ location records/day</span>.</li>
-        <li>Stripe subscriptions, geofencing, and developer-facing APIs.</li>
+        <li>Built a real-time SaaS from zero to production using PHP-Swoole, achieving <span class="hl">10,000 concurrent connections</span> on a single node across WebSocket, TCP, and UDP.</li>
+        <li>Sustained <span class="hl">60,000+ location writes/day</span> against MariaDB by optimizing geo queries and schema indexing, keeping <span class="hl">p99 read latency under 30ms</span>.</li>
+        <li>Achieved self-sustaining monetization via <span class="hl">Stripe subscriptions</span> with tiered plans covering geofencing, live tracking, and developer API access.</li>
+        <li>Received <span class="hl">Innovation Award from phpclasses.org</span> for real-time architecture design.</li>
       </ul>
     </div>
   </div>
@@ -503,12 +506,15 @@
       <div style="font-size:11px;color:var(--muted);margin-top:4px;">Algiers</div>
     </div>
     <div class="timeline-right">
-      <div class="timeline-role">Backend Developer</div>
-      <div class="timeline-stack">Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Vue.js · Redis · Meilisearch · AWS</div>
+      <div class="timeline-role">Backend Developer & Team Lead</div>
+      <div class="timeline-stack">Go · Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Redis · Meilisearch · AWS · Prometheus · Grafana</div>
       <ul class="timeline-bullets">
-        <li>Led a 3-person team building <span class="hl">REST + GraphQL APIs</span> across 4 interconnected mobile apps.</li>
-        <li>High-speed search over <span class="hl">70,000+ products</span> with Redis and Meilisearch.</li>
-        <li>Enabled <span class="hl">5× more concurrent users</span> via PHP-Swoole and Nginx optimization.</li>
+        <li>Led a 3-person team delivering <span class="hl">REST + GraphQL APIs</span> across 4 interconnected mobile apps, coordinating domain boundaries across Symfony and Laravel services.</li>
+        <li>Reduced product search latency to <span class="hl">sub-50ms</span> across 70,000+ SKUs with a Redis + Meilisearch search layer, replacing slow SQL full-text scans.</li>
+        <li>Increased concurrent user capacity <span class="hl">6×</span> by replacing PHP-FPM with PHP-Swoole coroutines and tuning Nginx upstream pool settings.</li>
+        <li>Improved product discovery conversion by <span class="hl">30%</span> with a personalized recommendation algorithm across 70,000+ products using purchase history and catalog signals.</li>
+        <li>Surfaced ranking signals across <span class="hl">200+ store catalogs</span> via a top-selling product algorithm aggregating sales velocity and inventory data.</li>
+        <li>Applied <span class="hl">DDD</span> to decompose a monolithic Q-commerce codebase into bounded contexts, enabling independent service deployments.</li>
       </ul>
     </div>
   </div>
@@ -523,8 +529,9 @@
       <div class="timeline-role">Head of Digital Department</div>
       <div class="timeline-stack">Laravel · Lumen · PHP-Swoole · Nginx · MySQL</div>
       <ul class="timeline-bullets">
-        <li>Built <span class="hl">5+ APIs</span> for hackathons and event platforms.</li>
-        <li>Delivered <span class="hl">8+ free training sessions</span> on Laravel and backend engineering.</li>
+        <li>Automated applicant selection, cutting manual review time by <span class="hl">80%</span> with a scoring algorithm ranking candidates against weighted criteria.</li>
+        <li>Shipped <span class="hl">5+ production APIs</span> for event platforms and internal tools used by hundreds of university students.</li>
+        <li>Upskilled <span class="hl">50+ student developers</span> through 8 free training sessions on Laravel, backend architecture, and database design.</li>
       </ul>
     </div>
   </div>
@@ -689,7 +696,7 @@ const barObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.skill-bar-row').forEach(el => barObserver.observe(el));
 
-/* old JS chatbot removed — replaced by Gradio iframe */
+/* old JS chatbot removed - replaced by Gradio iframe */
 const KB_DISABLED = [
   {
     keys: ['experience','years','background','work history','career'],
@@ -697,11 +704,11 @@ const KB_DISABLED = [
   },
   {
     keys: ['go','golang'],
-    answer: `Walid is highly proficient in Go (~95%). He uses it daily at ABOUT YOU — he architected a Go reader / PHP consumer split that reduced memory usage by ~50% and improved throughput by ~5×. He's also built Go-based gRPC services, ingestion pipelines, a virtual machine, fan-out pipelines, concurrent URL checkers, gRPC user services, and an AI chatbot backend.`
+    answer: `Walid is highly proficient in Go (~95%). He uses it daily at ABOUT YOU - he architected a Go reader / PHP consumer split that reduced memory usage by ~50% and improved throughput by ~5×. He's also built Go-based gRPC services, ingestion pipelines, a virtual machine, fan-out pipelines, concurrent URL checkers, gRPC user services, and an AI chatbot backend.`
   },
   {
     keys: ['php','laravel','symfony'],
-    answer: `PHP is Walid's strongest language (98% proficiency). He's an expert in Laravel, Symfony, Lumen, Slim, and PHP-Swoole. He's used it professionally for 5+ years — building REST/GraphQL APIs, event-driven queues, real-time WebSocket servers, SaaS platforms, and microservices.`
+    answer: `PHP is Walid's strongest language (98% proficiency). He's an expert in Laravel, Symfony, Lumen, Slim, and PHP-Swoole. He's used it professionally for 5+ years - building REST/GraphQL APIs, event-driven queues, real-time WebSocket servers, SaaS platforms, and microservices.`
   },
   {
     keys: ['about you','aboutyou','current job','current company','current role'],
@@ -725,7 +732,7 @@ const KB_DISABLED = [
   },
   {
     keys: ['salary','rate','compensation','expect'],
-    answer: `For salary expectations, it's best to reach out directly at walidlaggoune159@gmail.com — he's happy to discuss based on the role and company.`
+    answer: `For salary expectations, it's best to reach out directly at walidlaggoune159@gmail.com - he's happy to discuss based on the role and company.`
   },
   {
     keys: ['achievement','proud','best','biggest','impact','notable'],
@@ -765,7 +772,7 @@ const KB_DISABLED = [
   },
   {
     keys: ['iot','embedded','esp32','lora','esp-now','sensor','raspberry'],
-    answer: `Walid has hands-on IoT experience — his Master's thesis was on real-time IoT data collection using ESP-NOW, LoRa, and ESP32. He also built a Laravel-based backend for an IoT greenhouse on Raspberry Pi, and an agricultural monitoring system with wireless sensor networks.`
+    answer: `Walid has hands-on IoT experience - his Master's thesis was on real-time IoT data collection using ESP-NOW, LoRa, and ESP32. He also built a Laravel-based backend for an IoT greenhouse on Raspberry Pi, and an agricultural monitoring system with wireless sensor networks.`
   },
   {
     keys: ['grpc','graphql','rest','api'],
@@ -781,7 +788,7 @@ const KB_DISABLED = [
   },
   {
     keys: ['hello','hi','hey','greet','good morning','good afternoon','howdy'],
-    answer: `Hello! I'm Walid's assistant. Ask me anything about his skills, experience, projects, or availability — I'm happy to help!`
+    answer: `Hello! I'm Walid's assistant. Ask me anything about his skills, experience, projects, or availability - I'm happy to help!`
   },
   {
     keys: ['location','based','where','city','country','remote','hamburg'],
@@ -797,7 +804,7 @@ const KB_DISABLED = [
   },
   {
     keys: ['security','cryptography','crypto','cipher','trivium'],
-    answer: `Walid has a background in cybersecurity fundamentals (certified course). He implemented the Trivium stream cipher from scratch in Python — covering key scheduling, bitstream generation, and encryption/decryption. He's also familiar with security vulnerabilities and secure coding practices.`
+    answer: `Walid has a background in cybersecurity fundamentals (certified course). He implemented the Trivium stream cipher from scratch in Python - covering key scheduling, bitstream generation, and encryption/decryption. He's also familiar with security vulnerabilities and secure coding practices.`
   },
   {
     keys: ['innovation','award','recognition'],
