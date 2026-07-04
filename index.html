@@ -275,7 +275,7 @@
   <h1>Walid<br /><span class="dim">Laggoune</span></h1>
   <p class="hero-sub">Senior Backend Engineer specializing in Go and PHP, building distributed systems at scale. Currently at ABOUT YOU processing millions of daily product events from Adidas, Otto, and Tradebyte. Previously founded a real-time SaaS hitting 10K concurrent connections, and led a backend team serving 70K+ SKU search at ASEM Medical.</p>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years experience</span></div>
+    <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Years experience</span></div>
     <div class="stat"><span class="stat-num">~50%</span><span class="stat-label">Memory reduction</span></div>
     <div class="stat"><span class="stat-num">5×</span><span class="stat-label">Throughput gain</span></div>
     <div class="stat"><span class="stat-num">70k+</span><span class="stat-label">Products scaled</span></div>
@@ -392,7 +392,7 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">Frontend</div>
         <div class="skill-tags">
-          <span class="tag js">Vue.js</span><span class="tag js">Alpine.js</span><span class="tag js">Livewire</span><span class="tag js">jQuery</span><span class="tag js">Bootstrap</span>
+          <span class="tag js">Vue.js</span><span class="tag js">Alpine.js</span><span class="tag js">Livewire</span><span class="tag js">jQuery</span><span class="tag js">Bootstrap</span><span class="tag js">Tailwind CSS</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -416,7 +416,7 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">DevOps & Observability</div>
         <div class="skill-tags">
-          <span class="tag infra">Docker</span><span class="tag infra">Docker Swarm</span><span class="tag infra">AWS ECS/ECR/SQS/S3/SNS/EC2</span><span class="tag infra">CloudWatch</span><span class="tag infra">Nginx</span><span class="tag infra">HAProxy</span><span class="tag infra">GitLab CI</span><span class="tag infra">Prometheus</span><span class="tag infra">Grafana</span><span class="tag infra">Datadog</span>
+          <span class="tag infra">Docker</span><span class="tag infra">Docker Swarm</span><span class="tag infra">AWS ECS/ECR/SQS/S3/SNS/EC2</span><span class="tag infra">CloudWatch</span><span class="tag infra">Nginx</span><span class="tag infra">HAProxy</span><span class="tag infra">GitLab CI</span><span class="tag infra">Prometheus</span><span class="tag infra">Grafana</span><span class="tag infra">Datadog</span><span class="tag infra">Elasticsearch</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -507,9 +507,11 @@
     </div>
     <div class="timeline-right">
       <div class="timeline-role">Backend Developer & Team Lead</div>
-      <div class="timeline-stack">Go · Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Redis · Meilisearch · AWS · Prometheus · Grafana</div>
+      <div class="timeline-stack">Go · TCP/IP · Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Redis · Meilisearch · AWS EC2/S3/ECR · Prometheus · Grafana · Docker Swarm · Laravel Nova</div>
       <ul class="timeline-bullets">
         <li>Led a 3-person team delivering <span class="hl">REST + GraphQL APIs</span> across 4 interconnected mobile apps, coordinating domain boundaries across Symfony and Laravel services.</li>
+        <li>Built and owned a <span class="hl">high-performance Go TCP server</span> processing <span class="hl">5,000,000+ delivery-driver location updates/day</span>, plus thousands of real-time events (stock, order notifications), forming the core of a dispatch pipeline from client app through queues and a matching algorithm to the driver's app.</li>
+        <li>Prevented race conditions in concurrent order acceptance - ensuring exactly one driver could claim each order - and matched each order to the <span class="hl">nearest available driver</span> using real-time location data.</li>
         <li>Reduced product search latency to <span class="hl">sub-50ms</span> across 70,000+ SKUs with a Redis + Meilisearch search layer, replacing slow SQL full-text scans.</li>
         <li>Increased concurrent user capacity <span class="hl">6×</span> by replacing PHP-FPM with PHP-Swoole coroutines and tuning Nginx upstream pool settings.</li>
         <li>Improved product discovery conversion by <span class="hl">30%</span> with a personalized recommendation algorithm across 70,000+ products using purchase history and catalog signals.</li>
@@ -527,7 +529,7 @@
     </div>
     <div class="timeline-right">
       <div class="timeline-role">Head of Digital Department</div>
-      <div class="timeline-stack">Laravel · Lumen · PHP-Swoole · Nginx · MySQL</div>
+      <div class="timeline-stack">Laravel · Lumen · PHP-Swoole · Python · Nginx · MySQL · Meilisearch · Tailwind CSS · Vue.js</div>
       <ul class="timeline-bullets">
         <li>Automated applicant selection, cutting manual review time by <span class="hl">80%</span> with a scoring algorithm ranking candidates against weighted criteria.</li>
         <li>Shipped <span class="hl">5+ production APIs</span> for event platforms and internal tools used by hundreds of university students.</li>
