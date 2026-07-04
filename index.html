@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -252,6 +253,131 @@
       .chat-layout { grid-template-columns: 1fr; }
       footer { padding: 24px; }
     }
+
+  /* ── VUE PROJECT FILTER ── */
+  .repo-filters {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+  }
+  .filter-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace; cursor: pointer;
+    background: var(--bg2); border: 1px solid var(--border);
+    color: var(--muted); transition: all 0.2s; user-select: none;
+  }
+  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+  .filter-btn.active { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+  .filter-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .filter-count {
+    background: var(--bg3); border-radius: 4px; padding: 1px 6px;
+    font-size: 11px; color: var(--muted2);
+  }
+  .filter-btn.active .filter-count { color: var(--muted); }
+  .repo-count-label {
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    color: var(--muted2); margin-bottom: 20px;
+  }
+  /* TransitionGroup animations */
+  .repo-list-enter-active { transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+  .repo-list-leave-active  { transition: opacity 0.18s ease, transform 0.18s ease; position: absolute; }
+  .repo-list-enter-from    { opacity: 0; transform: translateY(18px) scale(0.96); }
+  .repo-list-leave-to      { opacity: 0; transform: scale(0.94); }
+  .repo-list-move          { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+  /* keep grid stable during leave */
+  #projects-vue-grid { position: relative; }
+
+  /* ── LOAD MORE BUTTON ── */
+  .load-more-btn {
+    padding: 10px 28px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    font-family: 'JetBrains Mono', monospace; cursor: pointer;
+    background: var(--bg2); border: 1px solid var(--border2);
+    color: var(--muted); transition: all 0.2s;
+  }
+  .load-more-btn:hover { color: var(--text); border-color: #555; background: var(--bg3); }
+
+  /* ── CURSOR GLOW ── */
+  .cursor-glow {
+    position: fixed; pointer-events: none; z-index: 0;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, transparent 65%);
+    transform: translate(-50%, -50%);
+    transition: left 0.08s linear, top 0.08s linear;
+  }
+
+  /* ── HERO AURORA ── */
+  .hero-aurora {
+    position: absolute; pointer-events: none; z-index: 0;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(96,165,250,0.06) 0%, rgba(167,139,250,0.04) 40%, transparent 70%);
+    top: 50%; left: 30%; transform: translate(-50%, -55%);
+    animation: aurora-drift 8s ease-in-out infinite alternate;
+    filter: blur(40px);
+  }
+  @keyframes aurora-drift {
+    0%   { transform: translate(-50%, -55%) scale(1);    opacity: 0.7; }
+    50%  { transform: translate(-45%, -50%) scale(1.08); opacity: 1;   }
+    100% { transform: translate(-55%, -58%) scale(0.95); opacity: 0.7; }
+  }
+  .hero { position: relative; }
+
+  /* ── HERO CHAR ANIMATION ── */
+  .hero-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(32px) rotateX(40deg);
+    animation: charIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes charIn {
+    to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+  }
+  h1 { perspective: 600px; }
+
+  /* ── MAGNETIC BUTTON ── */
+  .btn { transition: transform 0.25s cubic-bezier(0.23,1,0.32,1), background 0.2s, border-color 0.2s, color 0.2s; }
+
+  /* ── 3D TILT CARDS ── */
+  .skill-card, .repo-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transform-style: preserve-3d;
+  }
+  .skill-card:hover, .repo-card:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ── TAG SHIMMER ON HOVER ── */
+  .tag {
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  .tag:hover::after { transform: translateX(100%); }
+
+  /* ── SCRAMBLE LOGO ── */
+  .nav-logo { cursor: default; }
+
+  /* ── STAT COUNTER ── */
+  .stat-num { transition: opacity 0.2s; }
+
+  /* ── SECTION LABEL GLOW ── */
+  .section-label {
+    position: relative; display: inline-block;
+  }
+
+  /* ── HERO BADGE GLOW ── */
+  .hero-badge {
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .hero-badge:hover {
+    border-color: rgba(74,222,128,0.4);
+    box-shadow: 0 0 20px rgba(74,222,128,0.08);
+  }
   </style>
 </head>
 <body>
@@ -320,7 +446,7 @@
       frameborder="0"
       allow="microphone"
       style="display:block;background:#0a0a0a;position:relative;z-index:1;"
-      onload="document.getElementById('chatShimmer').style.display='none'"
+      onload="document.getElementById('chatShimmer').style.display='none'; this.blur();"
     ></iframe>
   </div>
 </section>
@@ -539,107 +665,11 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- PROJECTS - Vue 3 app -->
 <section id="projects" class="section-border">
   <div class="section-label fade-in">/ open source</div>
   <h2 class="fade-in">GitHub repositories</h2>
-  <div class="repos-grid">
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-queue-worker-in-go" target="_blank">
-      <div class="repo-top"><div class="repo-name">laravel-queue-worker-in-go</div><div class="repo-stars">★ 25</div></div>
-      <div class="repo-desc">GO queue worker orchestrating PHP processes. High-throughput Laravel pipeline replacement.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Oct 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/geopulse" target="_blank">
-      <div class="repo-top"><div class="repo-name">geopulse</div><div class="repo-stars">★ 25</div></div>
-      <div class="repo-desc">PHP Location Tracking Server built with PHP-Swoole. Innovation Award, phpclasses.org.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Sep 2024</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/hydrogenframework" target="_blank">
-      <div class="repo-top"><div class="repo-name">hydrogenframework</div><div class="repo-stars">★ 8</div></div>
-      <div class="repo-desc">A simple web micro framework built in PHP.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">May 2019</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/hydrogen-console" target="_blank">
-      <div class="repo-top"><div class="repo-name">hydrogen-console</div><div class="repo-stars">★ 5</div></div>
-      <div class="repo-desc">PHP class for working with inputs/outputs from/to the GNU/Linux terminal.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jul 2017</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/QPHP-storage" target="_blank">
-      <div class="repo-top"><div class="repo-name">QPHP-storage</div><div class="repo-stars">★ 4</div></div>
-      <div class="repo-desc">Simple in-memory storage based on Swoole 4. Innovation Award, phpclasses.org.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jun 2022</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/mongodb-php-concurrency" target="_blank">
-      <div class="repo-top"><div class="repo-name">mongodb-php-concurrency</div><div class="repo-stars">★ 3</div></div>
-      <div class="repo-desc">Concurrency PHP library for MongoDB. Safe concurrent reads/writes.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Aug 2023</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/trivium-cipher" target="_blank">
-      <div class="repo-top"><div class="repo-name">trivium-cipher</div><div class="repo-stars">★ 1</div></div>
-      <div class="repo-desc">Python implementation of the Trivium stream cipher from scratch: key scheduling, bitstream generation, encryption/decryption.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-python"></span>Python</div><div class="repo-date">Jan 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/webrtc" target="_blank">
-      <div class="repo-top"><div class="repo-name">webrtc</div><div class="repo-stars">★ 1</div></div>
-      <div class="repo-desc">Real-time peer-to-peer video application. Bachelor's final project.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-js"></span>JavaScript</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-  </div>
-
-  <div class="repos-divider fade-in">recent (0 stars)</div>
-
-  <div class="repos-grid">
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-event-driven-orders" target="_blank">
-      <div class="repo-top"><div class="repo-name">go-event-driven-orders</div></div>
-      <div class="repo-desc">Event-driven order processing system in Go.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/iot-smart-agriculture-monitoring-system" target="_blank">
-      <div class="repo-top"><div class="repo-name">iot-smart-agriculture-monitoring-system</div></div>
-      <div class="repo-desc">Wireless sensor network for real-time soil moisture, air quality, and visual surveillance monitoring.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-cpp"></span>C++</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-grpc-user-service" target="_blank">
-      <div class="repo-top"><div class="repo-name">go-grpc-user-service</div></div>
-      <div class="repo-desc">User service built with Go and gRPC.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/go-concurent-urls-checker" target="_blank">
-      <div class="repo-top"><div class="repo-name">go-concurent-urls-checker</div></div>
-      <div class="repo-desc">Concurrent URL health checker with worker pool pattern in Go.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/agencyplus-backend" target="_blank">
-      <div class="repo-top"><div class="repo-name">agencyplus-backend</div></div>
-      <div class="repo-desc">Go backend application built for real estate agencies.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Jun 2026</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/pulsetracker" target="_blank">
-      <div class="repo-top"><div class="repo-name">pulsetracker</div></div>
-      <div class="repo-desc">Source code of pulsestracker.com, a real-time location tracking SaaS built for developers.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Jul 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/simple-go-virutal-machine" target="_blank">
-      <div class="repo-top"><div class="repo-name">simple-go-virtual-machine</div></div>
-      <div class="repo-desc">Tiny register-based virtual machine implemented in Go.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-go"></span>Go</div><div class="repo-date">Sep 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/greenhouse-iot-backend" target="_blank">
-      <div class="repo-top"><div class="repo-name">greenhouse-iot-backend</div></div>
-      <div class="repo-desc">Laravel IoT-enabled greenhouse backend on Raspberry Pi with ESP-NOW sensor integration.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Oct 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/c-http-server" target="_blank">
-      <div class="repo-top"><div class="repo-name">c-http-server</div></div>
-      <div class="repo-desc">Simple HTTP server in C supporting GET requests. Learning systems programming from scratch.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-c"></span>C</div><div class="repo-date">Mar 2025</div></div>
-    </a>
-    <a class="repo-card fade-in" href="https://github.com/LAGGOUNE-Walid/laravel-clean-architecture" target="_blank">
-      <div class="repo-top"><div class="repo-name">laravel-clean-architecture</div></div>
-      <div class="repo-desc">Clean Architecture demonstration in the Laravel Framework.</div>
-      <div class="repo-footer"><div class="repo-lang"><span class="lang-dot lang-php"></span>PHP</div><div class="repo-date">Apr 2024</div></div>
-    </a>
-  </div>
+  <div id="projects-app"></div>
 </section>
 
 <!-- CONTACT -->
@@ -813,6 +843,300 @@ const KB_DISABLED = [
     answer: `Walid has received multiple Innovation Awards from phpclasses.org for **Geopulse** (location tracking server) and **QPHP** (Swoole queue server). He was also recognized with certifications and appreciations from CELEC Club as PHP and Laravel instructor and Head of Digital.`
   },
 ];
+
+// ── VUE PROJECTS APP ──
+const { createApp, ref, computed, onMounted } = Vue;
+createApp({
+  setup() {
+    const activeFilter = ref('All');
+    const repos        = ref([]);
+    const loading      = ref(true);
+    const error        = ref(false);
+    const PAGE_SIZE    = 9;
+    const visible      = ref(PAGE_SIZE);
+
+    const langColors = {
+      'Go': '#00ADD8', 'PHP': '#a78bfa', 'Python': '#fbbf24',
+      'JavaScript': '#60a5fa', 'TypeScript': '#60a5fa',
+      'C': '#fb923c', 'C++': '#fb923c', 'Shell': '#4ade80',
+      'Vue': '#4ade80', 'HTML': '#f97316',
+    };
+    const normLang = lang => {
+      if (!lang) return 'Other';
+      if (lang === 'C' || lang === 'C++') return 'C/C++';
+      return lang;
+    };
+    const langColor = lang => langColors[lang] || '#888';
+
+    const filters = computed(() => {
+      const counts = {};
+      repos.value.forEach(r => { counts[r.lang] = (counts[r.lang] || 0) + 1; });
+      const order = ['Go', 'PHP', 'Python', 'JavaScript', 'TypeScript', 'C/C++', 'Shell', 'Other'];
+      const present = order.filter(l => counts[l]);
+      return [
+        { label: 'All', color: '#ffffff' },
+        ...present.map(l => ({ label: l, color: langColors[l] || '#888' })),
+      ];
+    });
+
+    const filtered = computed(() => {
+      const sorted = [...repos.value].sort((a, b) =>
+        b.stars !== a.stars ? b.stars - a.stars : new Date(b.updated) - new Date(a.updated)
+      );
+      return activeFilter.value === 'All'
+        ? sorted
+        : sorted.filter(r => r.lang === activeFilter.value);
+    });
+
+    const page = computed(() => filtered.value.slice(0, visible.value));
+    const hasMore = computed(() => visible.value < filtered.value.length);
+
+    const setFilter = f => { activeFilter.value = f; visible.value = PAGE_SIZE; };
+    const loadMore  = () => { visible.value += PAGE_SIZE; };
+
+    const countFor = label => label === 'All'
+      ? repos.value.length
+      : repos.value.filter(r => r.lang === label).length;
+
+    const fmtDate = iso => {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    };
+
+    onMounted(async () => {
+      try {
+        let all = [], page = 1;
+        while (true) {
+          const res  = await fetch(`https://api.github.com/users/LAGGOUNE-Walid/repos?per_page=100&page=${page}`);
+          if (!res.ok) throw new Error(res.status);
+          const data = await res.json();
+          if (!data.length) break;
+          all = all.concat(data);
+          if (data.length < 100) break;
+          page++;
+        }
+        repos.value = all
+          .filter(r => !r.fork)
+          .map(r => ({
+            name:    r.name,
+            url:     r.html_url,
+            stars:   r.stargazers_count,
+            lang:    normLang(r.language),
+            desc:    r.description || '',
+            date:    fmtDate(r.pushed_at),
+            updated: r.pushed_at,
+          }));
+      } catch (e) {
+        error.value = true;
+      } finally {
+        loading.value = false;
+      }
+    });
+
+    return { filters, activeFilter, page, hasMore, loading, error, langColor, countFor, setFilter, loadMore };
+  },
+  template: `
+    <div>
+      <template v-if="loading">
+        <div class="repos-grid">
+          <div v-for="i in 6" :key="i" class="repo-card shimmer" style="height:110px;pointer-events:none;"></div>
+        </div>
+      </template>
+      <template v-else-if="error">
+        <p style="color:var(--muted);font-size:14px;">Could not load repositories. <a href="https://github.com/LAGGOUNE-Walid" target="_blank" style="color:var(--accent)">View on GitHub ↗</a></p>
+      </template>
+      <template v-else>
+        <div class="repo-filters">
+          <button
+            v-for="f in filters"
+            :key="f.label"
+            :class="['filter-btn', { active: activeFilter === f.label }]"
+            @click="setFilter(f.label)"
+          >
+            <span class="filter-dot" :style="{ background: f.color }"></span>
+            {{ f.label }}
+            <span class="filter-count">{{ countFor(f.label) }}</span>
+          </button>
+        </div>
+        <div class="repo-count-label">showing {{ page.length }} of {{ countFor(activeFilter) }} repositor{{ countFor(activeFilter) === 1 ? 'y' : 'ies' }}</div>
+        <transition-group name="repo-list" tag="div" class="repos-grid" id="projects-vue-grid">
+          <a
+            v-for="repo in page"
+            :key="repo.name"
+            class="repo-card"
+            :href="repo.url"
+            target="_blank"
+          >
+            <div class="repo-top">
+              <div class="repo-name">{{ repo.name }}</div>
+              <div v-if="repo.stars > 0" class="repo-stars">★ {{ repo.stars }}</div>
+            </div>
+            <div class="repo-desc">{{ repo.desc }}</div>
+            <div class="repo-footer">
+              <div class="repo-lang">
+                <span class="lang-dot" :style="{ background: langColor(repo.lang) }"></span>
+                {{ repo.lang }}
+              </div>
+              <div class="repo-date">{{ repo.date }}</div>
+            </div>
+          </a>
+        </transition-group>
+        <div v-if="hasMore" style="text-align:center;margin-top:32px;">
+          <button class="load-more-btn" @click="loadMore">Load more ({{ countFor(activeFilter) - page.length }} remaining)</button>
+        </div>
+      </template>
+    </div>
+  `
+}).mount('#projects-app');
+
+// ── CURSOR GLOW ──
+const glow = document.createElement('div');
+glow.className = 'cursor-glow';
+document.body.appendChild(glow);
+let glowX = 0, glowY = 0, curX = 0, curY = 0;
+document.addEventListener('mousemove', e => { curX = e.clientX; curY = e.clientY; });
+(function animateGlow() {
+  glowX += (curX - glowX) * 0.12;
+  glowY += (curY - glowY) * 0.12;
+  glow.style.left = glowX + 'px';
+  glow.style.top  = glowY + 'px';
+  requestAnimationFrame(animateGlow);
+})();
+
+// ── HERO AURORA ──
+const aurora = document.createElement('div');
+aurora.className = 'hero-aurora';
+document.querySelector('.hero').prepend(aurora);
+
+// ── HERO CHAR SPLIT ANIMATION ──
+(function splitHeroChars() {
+  const h1 = document.querySelector('h1');
+  if (!h1) return;
+  // collect text nodes and span.dim
+  let delay = 0;
+  function wrapChars(node, isDim) {
+    const text = node.textContent;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (ch === ' ' || ch === '\n') {
+        frag.appendChild(document.createTextNode(ch === '\n' ? '\n' : ' '));
+      } else {
+        const s = document.createElement('span');
+        s.className = 'hero-char' + (isDim ? ' dim' : '');
+        s.textContent = ch;
+        s.style.animationDelay = delay + 'ms';
+        delay += 38;
+        frag.appendChild(s);
+      }
+    }
+    return frag;
+  }
+  const newH1 = document.createElement('h1');
+  newH1.style.cssText = h1.style.cssText;
+  h1.childNodes.forEach(node => {
+    if (node.nodeType === 3) {
+      newH1.appendChild(wrapChars(node, false));
+    } else if (node.nodeName === 'SPAN' && node.classList.contains('dim')) {
+      newH1.appendChild(wrapChars(node, true));
+    } else if (node.nodeName === 'BR') {
+      newH1.appendChild(document.createElement('br'));
+    } else {
+      newH1.appendChild(node.cloneNode(true));
+    }
+  });
+  h1.replaceWith(newH1);
+})();
+
+// ── STAT COUNTERS ──
+(function initCounters() {
+  const stats = document.querySelectorAll('.stat-num');
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const raw = el.textContent.trim();
+      // extract number
+      const match = raw.match(/[\d.]+/);
+      if (!match) return;
+      const target = parseFloat(match[0]);
+      const prefix = raw.slice(0, raw.search(/[\d.]/));
+      const suffix = raw.slice(raw.search(/[\d.]/) + match[0].length);
+      const isFloat = match[0].includes('.');
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 4);
+        const val = ease * target;
+        el.textContent = prefix + (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(el => counterObs.observe(el));
+})();
+
+// ── 3D CARD TILT ──
+document.querySelectorAll('.skill-card, .repo-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform = `perspective(700px) rotateX(${-y * 7}deg) rotateY(${x * 7}deg) scale(1.025)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── MAGNETIC BUTTONS ──
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width  / 2) * 0.28;
+    const y = (e.clientY - r.top  - r.height / 2) * 0.28;
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+});
+
+// ── TEXT SCRAMBLE ON NAV LOGO ──
+(function initScramble() {
+  const logo = document.querySelector('.nav-logo');
+  if (!logo) return;
+  const original = logo.textContent;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$.<>';
+  let raf, frame = 0;
+  function scramble() {
+    frame++;
+    const revealed = Math.floor(frame / 2);
+    let out = '';
+    for (let i = 0; i < original.length; i++) {
+      if (original[i] === ' ' || original[i] === '.') { out += original[i]; continue; }
+      if (i < revealed) { out += original[i]; }
+      else { out += chars[Math.floor(Math.random() * chars.length)]; }
+    }
+    logo.textContent = out;
+    if (revealed < original.length) raf = requestAnimationFrame(scramble);
+    else logo.textContent = original;
+  }
+  logo.addEventListener('mouseenter', () => {
+    frame = 0;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(scramble);
+  });
+})();
+
+// ── SKILL BAR GLOW ON FILL ──
+document.querySelectorAll('.skill-bar-fill').forEach(fill => {
+  fill.style.boxShadow = '0 0 8px currentColor';
+  fill.style.opacity = '0.9';
+});
 </script>
 </body>
 </html>
