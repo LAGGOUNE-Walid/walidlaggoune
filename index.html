@@ -880,8 +880,9 @@ createApp({
     });
 
     const filtered = computed(() => {
+      const eff = r => r.stars <= 1 ? 0 : r.stars;
       const sorted = [...repos.value].sort((a, b) =>
-        b.stars !== a.stars ? b.stars - a.stars : new Date(b.updated) - new Date(a.updated)
+        eff(b) !== eff(a) ? eff(b) - eff(a) : new Date(b.updated) - new Date(a.updated)
       );
       return activeFilter.value === 'All'
         ? sorted
