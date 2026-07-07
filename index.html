@@ -399,7 +399,7 @@
 <div class="hero" id="about">
   <div class="hero-badge"><span class="dot"></span>Available for opportunities · Hamburg, Germany</div>
   <h1>Walid<br /><span class="dim">Laggoune</span></h1>
-  <p class="hero-sub">Senior Backend Engineer specializing in Go and PHP, building distributed systems at scale. Currently at ABOUT YOU processing millions of daily product events from Adidas, Otto, and Tradebyte. Previously founded a real-time SaaS hitting 10K concurrent connections, and led a backend team serving 70K+ SKU search at ASEM Medical.</p>
+  <p class="hero-sub">Senior Backend Engineer specializing in Go, PHP, and Python, building distributed systems at scale. Currently at ABOUT YOU processing millions of daily product events from Adidas, Otto, and Tradebyte. Previously founded a real-time SaaS hitting 10K concurrent connections, and led a backend team at ASEM Medical — shipping vector search, real-time dispatch, and ML-powered pipelines across 70K+ SKUs.</p>
   <div class="hero-stats">
     <div class="stat"><span class="stat-num">6+</span><span class="stat-label">Years experience</span></div>
     <div class="stat"><span class="stat-num">~50%</span><span class="stat-label">Memory reduction</span></div>
@@ -471,8 +471,8 @@
         <div class="skill-bar-header"><span class="skill-bar-name">JavaScript / Vue.js</span><span class="skill-bar-pct">75%</span></div>
         <div class="skill-bar-track"><div class="skill-bar-fill fill-js"></div></div>
       </div>
-      <div class="skill-bar-row" data-pct="60">
-        <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">60%</span></div>
+      <div class="skill-bar-row" data-pct="70">
+        <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">70%</span></div>
         <div class="skill-bar-track"><div class="skill-bar-fill fill-arch"></div></div>
       </div>
       <div class="skill-bar-row" data-pct="50">
@@ -530,7 +530,7 @@
       <div class="skill-card fade-in">
         <div class="skill-card-title">Databases & Caching</div>
         <div class="skill-tags">
-          <span class="tag db">PostgreSQL</span><span class="tag db">MySQL</span><span class="tag db">MariaDB</span><span class="tag db">MongoDB</span><span class="tag db">RDS</span><span class="tag db">Redis</span><span class="tag db">Valkey</span><span class="tag db">Memcached</span><span class="tag db">Meilisearch</span><span class="tag db">Varnish</span>
+          <span class="tag db">PostgreSQL</span><span class="tag db">MySQL</span><span class="tag db">MariaDB</span><span class="tag db">MongoDB</span><span class="tag db">RDS</span><span class="tag db">Redis</span><span class="tag db">Valkey</span><span class="tag db">Memcached</span><span class="tag db">Meilisearch</span><span class="tag db">Qdrant</span><span class="tag db">Varnish</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -555,6 +555,12 @@
         <div class="skill-card-title">Go Ecosystem</div>
         <div class="skill-tags">
           <span class="tag go">net/http</span><span class="tag go">chi</span><span class="tag go">Gin</span><span class="tag go">Fiber</span><span class="tag go">gorilla/mux</span><span class="tag go">gRPC</span><span class="tag go">Protocol Buffers</span><span class="tag go">cobra</span><span class="tag go">viper</span><span class="tag go">zap</span><span class="tag go">zerolog</span><span class="tag go">go-redis</span><span class="tag go">GORM</span><span class="tag go">sqlx</span><span class="tag go">pgx</span><span class="tag go">testify</span><span class="tag go">gomock</span><span class="tag go">golangci-lint</span><span class="tag go">air</span><span class="tag go">delve</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-card-title">Python Ecosystem</div>
+        <div class="skill-tags">
+          <span class="tag">FastAPI</span><span class="tag">Pydantic</span><span class="tag">Uvicorn</span><span class="tag">asyncio</span><span class="tag">rembg</span>
         </div>
       </div>
       <div class="skill-card fade-in">
@@ -633,7 +639,7 @@
     </div>
     <div class="timeline-right">
       <div class="timeline-role">Backend Developer & Team Lead</div>
-      <div class="timeline-stack">Go · TCP/IP · Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Redis · Meilisearch · AWS EC2/S3/ECR · Prometheus · Grafana · Docker Swarm · Laravel Nova</div>
+      <div class="timeline-stack">Go · TCP/IP · Symfony · Laravel · PHP-Swoole · HAProxy · Nginx · MariaDB · Redis · Meilisearch · Python · FastAPI · Qdrant · rembg · AWS EC2/S3/ECR · Prometheus · Grafana · Docker Swarm · Laravel Nova</div>
       <ul class="timeline-bullets">
         <li>Led a 3-person team delivering <span class="hl">REST + GraphQL APIs</span> across 4 interconnected mobile apps, coordinating domain boundaries across Symfony and Laravel services.</li>
         <li>Built and owned a <span class="hl">high-performance Go TCP server</span> processing <span class="hl">5,000,000+ delivery-driver location updates/day</span>, plus thousands of real-time events (stock, order notifications), forming the core of a dispatch pipeline from client app through queues and a matching algorithm to the driver's app.</li>
@@ -643,6 +649,8 @@
         <li>Improved product discovery conversion by <span class="hl">30%</span> with a personalized recommendation algorithm across 70,000+ products using purchase history and catalog signals.</li>
         <li>Surfaced ranking signals across <span class="hl">200+ store catalogs</span> via a top-selling product algorithm aggregating sales velocity and inventory data.</li>
         <li>Applied <span class="hl">DDD</span> to decompose a monolithic Q-commerce codebase into bounded contexts, enabling independent service deployments.</li>
+        <li>Built a <span class="hl">Python FastAPI service</span> backed by a <span class="hl">Qdrant vector database</span> to power recipe recommendations on the recipe reels app, surfacing similar recipes based on users' liked reels.</li>
+        <li>Automated product image background removal using <span class="hl">rembg</span>, integrated into the product-catalog pipeline to standardize listing images at scale.</li>
       </ul>
     </div>
   </div>
